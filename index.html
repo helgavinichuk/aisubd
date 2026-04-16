@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>AI-ориентированные СУБД | Полный курс | Теория + практика (пароль 123)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'Roboto', system-ui, 'Inter', sans-serif;
+            background: #eef2f8;
+            color: #1a2c3e;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem 1.5rem; }
+        .nonen{display: none!important;}
+        .hero {
+            background: linear-gradient(135deg, #0a2a36 0%, #0f3f52 100%);
+            color: white;
+            border-radius: 2rem;
+            padding: 2rem 2rem 1.8rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.25);
+        }
+        .hero h1 { font-size: 3.5rem; background: linear-gradient(120deg, #fff, #b3e4ff); background-clip: text; -webkit-background-clip: text; color: transparent; }
+        .badge-group { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+        .badge { background: #2aa5dc30; backdrop-filter: blur(4px); padding: 0.3rem 0.9rem; border-radius: 40px; font-size: 0.8rem; }
+        .section-card { background: white; border-radius: 1.6rem; margin-bottom: 2rem; box-shadow: 0 8px 20px rgba(0,0,0,0.05); overflow: hidden; }
+        .section-header { background: #ffffff; padding: 1.2rem 2rem; font-size: 2.6rem; font-weight: 700; border-bottom: 3px solid #2aa5dc; display: flex; align-items: center; gap: 12px; }
+        .section-header span { background: #0f3b4f; color: white; width: 42px; height: 42px; display: inline-flex; align-items: center; justify-content: center; border-radius: 40px; font-size: 1.2rem; }
+        .content-inner { padding: 1.6rem 2rem 2rem; }
+        .theory-block { font-size: 1.4rem; background: #f6f9fe; border-radius: 1.2rem; padding: 1.2rem 1.6rem; margin: 1rem 0; border-left: 6px solid #2aa5dc; }
+        .theory-deep { background: #fef9e6; border-left: 6px solid #f4b942; }
+        .code-block { background: #1e2a36; color: #eef4ff; padding: 1rem; border-radius: 1rem; font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 1.0rem; overflow-x: auto; margin: 1rem 0; white-space: pre-wrap; }
+        .screenshot-sim { background: #0c1a22; color: #bbddff; padding: 1rem; border-radius: 1rem; font-family: monospace; font-size: 0.8rem; margin: 1rem 0; border-left: 4px solid #2aa5dc; }
+        .step-list { background: #fef7e0; padding: 1rem 1.5rem; border-radius: 1rem; margin: 1rem 0; }
+        .step-list li { margin-left: 1.5rem; margin-bottom: 0.5rem; }
+        .practice-card { background: #fafcff; border-radius: 1.2rem; margin: 1.5rem 0; padding: 1rem 1.5rem; border: 1px solid #e2edf7; }
+        .password-field { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0.8rem 0; }
+        .password-field input { padding: 8px 14px; border-radius: 40px; border: 1px solid #bdd4e2; font-family: monospace; width: 150px; }
+        button { background: #1e5f7a; border: none; padding: 8px 20px; border-radius: 40px; color: white; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        button:hover { background: #0f475e; }
+        .solution-hidden { display: none; background: #e8f3e6; border-radius: 1rem; padding: 1rem; margin-top: 1rem; border-left: 4px solid #2c7a4d; font-family: monospace; font-size: 0.9rem; }
+        .info-note { background: #e1f0fa; border-radius: 1rem; padding: 0.8rem 1.2rem; font-size: 0.9rem; }
+        .comparison-table { overflow-x: auto; margin: 1rem 0; }
+        .comparison-table table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 1rem; }
+        .comparison-table th, .comparison-table td { border: 1px solid #d4e0ec; padding: 10px 12px; text-align: left; vertical-align: top; }
+        .comparison-table th { background: #e6f0f9; }
+        .example-grid { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem 0; }
+        .example-card { background: white; border-radius: 1rem; padding: 1rem; border: 1px solid #cde3f5; flex: 1; min-width: 200px; }
+        footer { text-align: center; margin-top: 2rem; font-size: 0.8rem; color: #5f7f9a; }
+        @media (max-width: 700px) { .container { padding: 1rem; } .section-header { font-size: 1.3rem; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>🧠 AI-ориентированные СУБД</h1>
+        <p style="margin-top: 0.8rem; font-size: 1.1rem;" class="nonen">PostgreSQL + pgvector • Векторные базы данных • Семантический поиск • Полный курс</p>
+        <div class="badge-group ">
+            <span class="badge">📘 35 часов</span><span class="badge">⚙️ 6 практических работ</span><span class="badge">🎯 Рекомендательные системы</span>
+        </div>
+    </div>
+
+    <!-- ========= РАЗДЕЛ 1.1 ПРАВИЛА БЕЗОПАСНОСТИ ========= -->
+    <div class="section-card">
+        <div class="section-header"><span>1.1</span> Правила безопасного поведения</div>
+        <div class="content-inner">
+            <div class="theory-block">
+                <strong>⚠️ Инструкция по технике безопасности в компьютерном классе:</strong><br>
+                • Запрещается трогать кабели питания и серверное оборудование без разрешения преподавателя.<br>
+                • При работе с PostgreSQL и серверными конфигурациями соблюдать электробезопасность: не подключать/отключать питание во время работы ПК.<br>
+                • Соблюдать санитарные нормы: перерывы каждые 30-40 минут, правильная осанка, расстояние до монитора 50-70 см.<br>
+                • Не изменять настройки BIOS, не отключать защитное ПО.<br>
+                • При возникновении запаха гари или неисправности немедленно сообщить преподавателю.
+            </div>
+        </div>
+    </div>
+
+    <!-- ========= РАЗДЕЛ 1.2 + 1.3 ТЕОРИЯ AI-СУБД (МАКСИМАЛЬНО РАСШИРЕН + ДОБАВЛЕН ПРИМЕР С pgvector) ========= -->
+    <div class="section-card">
+        <div class="section-header"><span>1.2-1.3</span> AI-ориентированные СУБД: назначение и обзор решений</div>
+        <div class="content-inner">
+            
+            <!-- ========= ПОЛНЫЙ СИНТАКСИС POSTGRESQL (ВСЕ ОСНОВНЫЕ КОМАНДЫ) ========= -->
+            <div class="theory-block theory-deep">
+                <strong>📚 СИНТАКСИС POSTGRESQL (DDL, DML, DQL, DCL, индексы, функции, окна, CTE)</strong>
+                
+                <p><strong>1. DDL (Data Definition Language) — создание и изменение структуры БД</strong></p>
+                <div class="code-block">
+-- Создание базы данных
+CREATE DATABASE mydb WITH ENCODING='UTF8' OWNER=postgres;
+
+-- Удаление базы данных
+DROP DATABASE IF EXISTS mydb;
+
+-- Создание схемы
+CREATE SCHEMA IF NOT EXISTS myschema;
+
+-- Создание таблицы (все типы данных)
+CREATE TABLE employees (
+    id SERIAL PRIMARY KEY,                     -- автоинкремент
+    name VARCHAR(100) NOT NULL,
+    email TEXT UNIQUE,
+    age INT CHECK (age >= 18),
+    salary NUMERIC(10,2) DEFAULT 0.0,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP DEFAULT NOW(),
+    profile JSONB,                             -- JSON тип
+    tags TEXT[]                                -- массив
+);
+
+-- Изменение таблицы
+ALTER TABLE employees ADD COLUMN department_id INT;
+ALTER TABLE employees RENAME COLUMN name TO full_name;
+ALTER TABLE employees ALTER COLUMN salary SET NOT NULL;
+ALTER TABLE employees DROP COLUMN tags;
+
+-- Создание внешнего ключа
+ALTER TABLE employees ADD CONSTRAINT fk_dept FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE CASCADE;
+
+-- Создание составного индекса
+CREATE INDEX idx_emp_name_age ON employees(full_name, age);
+
+-- Создание уникального индекса
+CREATE UNIQUE INDEX idx_unique_email ON employees(email);
+
+-- Удаление индекса
+DROP INDEX idx_emp_name_age;
+
+-- Создание представления (VIEW)
+CREATE VIEW active_employees AS SELECT id, full_name, salary FROM employees WHERE is_active = true;
+
+-- Материализованное представление (кешируется)
+CREATE MATERIALIZED VIEW emp_summary AS SELECT department_id, COUNT(*) FROM employees GROUP BY department_id;
+REFRESH MATERIALIZED VIEW emp_summary;
+
+-- Последовательности (SEQUENCE)
+CREATE SEQUENCE order_seq START 1000 INCREMENT 1;
+SELECT nextval('order_seq');
+                </div>
+
+                <p><strong>2. DML (Data Manipulation Language) — вставка, обновление, удаление</strong></p>
+                <div class="code-block">
+-- Вставка одной строки
+INSERT INTO employees (full_name, email, age, salary) VALUES ('Иван Петров', 'ivan@mail.ru', 25, 50000);
+
+-- Вставка нескольких строк
+INSERT INTO employees (full_name, email, age) VALUES 
+    ('Анна Сидорова', 'anna@mail.ru', 30),
+    ('Олег Иванов', 'oleg@mail.ru', 28);
+
+-- Вставка из SELECT
+INSERT INTO employees_archive SELECT * FROM employees WHERE age > 50;
+
+-- UPDATE с условием
+UPDATE employees SET salary = salary * 1.1 WHERE department_id = 5;
+
+-- UPDATE с подзапросом
+UPDATE employees SET salary = (SELECT AVG(salary) FROM employees WHERE department_id = 1) WHERE id = 100;
+
+-- DELETE с условием
+DELETE FROM employees WHERE is_active = false;
+
+-- TRUNCATE (быстрое удаление всех строк)
+TRUNCATE TABLE temp_data;
+                </div>
+
+                <p><strong>3. DQL (Data Query Language) — SELECT любой сложности</strong></p>
+                <div class="code-block">
+-- Простая выборка
+SELECT id, full_name, salary FROM employees WHERE age > 25 ORDER BY salary DESC LIMIT 10;
+
+-- DISTINCT (уникальные значения)
+SELECT DISTINCT department_id FROM employees;
+
+-- Агрегатные функции (SUM, AVG, COUNT, MIN, MAX)
+SELECT department_id, AVG(salary) as avg_salary, COUNT(*) as emp_count 
+FROM employees GROUP BY department_id HAVING COUNT(*) > 5;
+
+-- JOIN (INNER, LEFT, RIGHT, FULL)
+SELECT e.full_name, d.name as dept_name
+FROM employees e
+INNER JOIN departments d ON e.department_id = d.id;
+
+-- LEFT JOIN с проверкой на NULL
+SELECT e.full_name, d.name FROM employees e LEFT JOIN departments d ON e.department_id = d.id;
+
+-- Подзапросы (скалярные, табличные, EXISTS)
+SELECT full_name FROM employees WHERE salary > (SELECT AVG(salary) FROM employees);
+
+-- EXISTS (проверка наличия)
+SELECT d.name FROM departments d WHERE EXISTS (SELECT 1 FROM employees e WHERE e.department_id = d.id);
+
+-- CTE (Common Table Expressions — WITH)
+WITH high_salary AS (
+    SELECT * FROM employees WHERE salary > 70000
+)
+SELECT * FROM high_salary WHERE age < 40;
+
+-- Рекурсивный CTE (иерархия)
+WITH RECURSIVE org_tree AS (
+    SELECT id, name, manager_id, 1 AS level FROM employees WHERE manager_id IS NULL
+    UNION ALL
+    SELECT e.id, e.name, e.manager_id, ot.level + 1
+    FROM employees e INNER JOIN org_tree ot ON e.manager_id = ot.id
+)
+SELECT * FROM org_tree;
+
+-- Оконные функции (WINDOW FUNCTIONS)
+SELECT full_name, salary, department_id,
+    ROW_NUMBER() OVER (PARTITION BY department_id ORDER BY salary DESC) as rank_in_dept,
+    AVG(salary) OVER (PARTITION BY department_id) as dept_avg,
+    LAG(salary) OVER (ORDER BY id) as prev_salary
+FROM employees;
+
+-- FULLTEXT поиск (tsvector/tsquery)
+CREATE INDEX idx_fts ON documents USING GIN(to_tsvector('russian', content));
+SELECT * FROM documents WHERE to_tsvector('russian', content) @@ to_tsquery('russian', 'AI & базы');
+
+-- Работа с JSONB
+SELECT profile->>'city' as city FROM employees WHERE profile @> '{"experience": "senior"}';
+                </div>
+
+                <p><strong>4. DCL (Data Control Language) — права доступа</strong></p>
+                <div class="code-block">
+-- Создание пользователя
+CREATE USER app_user WITH PASSWORD 'secure_pass';
+
+-- Дать права на SELECT, INSERT, UPDATE
+GRANT SELECT, INSERT, UPDATE ON employees TO app_user;
+
+-- Дать все права на схему
+GRANT ALL PRIVILEGES ON SCHEMA public TO app_user;
+
+-- Забрать права
+REVOKE INSERT ON employees FROM app_user;
+
+-- Роли
+CREATE ROLE analyst;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO analyst;
+GRANT analyst TO app_user;
+                </div>
+
+                <p><strong>5. Функции, процедуры, триггеры</strong></p>
+                <div class="code-block">
+-- Функция на PL/pgSQL
+CREATE OR REPLACE FUNCTION get_employee_count(dept_id INT)
+RETURNS INT LANGUAGE plpgsql AS $$
+DECLARE
+    emp_count INT;
+BEGIN
+    SELECT COUNT(*) INTO emp_count FROM employees WHERE department_id = dept_id;
+    RETURN emp_count;
+END;
+$$;
+
+-- Хранимая процедура (PostgreSQL 11+)
+CREATE PROCEDURE update_salaries(percent INT)
+LANGUAGE plpgsql AS $$
+BEGIN
+    UPDATE employees SET salary = salary * (1 + percent/100.0);
+END;
+$$;
+CALL update_salaries(5);
+
+-- Триггерная функция
+CREATE OR REPLACE FUNCTION set_updated_at()
+RETURNS TRIGGER LANGUAGE plpgsql AS $$
+BEGIN
+    NEW.updated_at = NOW();
+    RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER trigger_update_employees BEFORE UPDATE ON employees
+FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+                </div>
+
+                <p><strong>6. Транзакции и блокировки</strong></p>
+                <div class="code-block">
+BEGIN;  -- или START TRANSACTION
+    UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+    UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+COMMIT;  -- или ROLLBACK
+
+-- Уровни изоляции
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+
+-- Блокировка строки (FOR UPDATE)
+SELECT * FROM employees WHERE id = 10 FOR UPDATE;
+                </div>
+
+                <p><strong>7. Векторные операции pgvector (расширение для AI)</strong></p>
+                <div class="code-block">
+CREATE EXTENSION vector;
+
+CREATE TABLE products (
+    id SERIAL,
+    name TEXT,
+    embedding VECTOR(384)  -- размерность эмбеддинга
+);
+
+-- Вставка векторов
+INSERT INTO products VALUES (1, 'Ноутбук', '[0.123, -0.456, 0.789, ...]');
+
+-- Операторы векторного поиска
+SELECT * FROM products ORDER BY embedding &lt;-&gt; '[0.1,0.2,0.3]' LIMIT 5;      -- L2
+SELECT * FROM products ORDER BY embedding &lt;#&gt; '[0.1,0.2,0.3]' LIMIT 5;      -- косинус
+SELECT * FROM products ORDER BY embedding &lt;#&gt; '[0.1,0.2,0.3]' LIMIT 5;      -- скалярное
+
+-- Индексы для векторов
+CREATE INDEX ON products USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
+CREATE INDEX ON products USING hnsw (embedding vector_cosine_ops);
+                </div>
+            </div>
+
+            <!-- ========= ИНСТРУКЦИЯ РАБОТЫ С ИНТЕРФЕЙСОМ PostgreSQL ========= -->
+            <div class="theory-block">
+                <strong>🖥️ ИНСТРУКЦИЯ РАБОТЫ С ИНТЕРФЕЙСОМ POSTGRESQL </strong>
+                
+                <p><strong>1. Консольный клиент psql — все основные команды</strong></p>
+                <div class="screenshot-sim">
+<pre>$ sudo -u postgres psql                    <span style="color:#88ffaa;">-- вход под пользователем postgres</span>
+psql (15.4)
+Type "help" for help.
+
+postgres=# \l                              <span style="color:#88ffaa;">-- список всех баз данных</span>
+                                  List of databases
+   Name    |  Owner   | Encoding |   Collate   |    Ctype    | Access privileges 
+-----------+----------+----------+-------------+-------------+-------------------
+ postgres  | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+ template0 | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres
+ template1 | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres
+ mydb      | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | 
+
+postgres=# \c mydb                         <span style="color:#88ffaa;">-- подключиться к базе mydb</span>
+You are now connected to database "mydb".
+
+mydb=# \dt                                 <span style="color:#88ffaa;">-- список таблиц (relations)</span>
+        List of relations
+ Schema |    Name    | Type  |  Owner   
+--------+------------+-------+----------
+ public | employees  | table | postgres
+ public | departments| table | postgres
+
+mydb=# \d employees                        <span style="color:#88ffaa;">-- описание таблицы employees</span>
+                                    Table "public.employees"
+   Column    |         Type          | Collation | Nullable |              Default
+-------------+-----------------------+-----------+----------+-----------------------------------
+ id          | integer               |           | not null | nextval('employees_id_seq'::regclass)
+ full_name   | character varying(100)|           | not null | 
+ email       | text                  |           |          | 
+ salary      | numeric(10,2)         |           |          | 0.0
+
+mydb=# \du                                <span style="color:#88ffaa;">-- список ролей/пользователей</span>
+                                   List of roles
+ Role name |                         Attributes                         
+-----------+------------------------------------------------------------
+ postgres  | Superuser, Create role, Create DB, Replication, Bypass RLS
+ app_user  | 
+
+mydb=# \dx                                <span style="color:#88ffaa;">-- список установленных расширений</span>
+                                List of installed extensions
+   Name   | Version |   Schema   |                     Description
+----------+---------+------------+------------------------------------------------------
+ plpgsql  | 1.0     | pg_catalog | PL/pgSQL procedural language
+ vector   | 0.5.1   | public     | vector data type and ivfflat/hnsw access methods
+
+mydb=# \df                                <span style="color:#88ffaa;">-- список функций</span>
+mydb=# \dv                                <span style="color:#88ffaa;">-- список представлений</span>
+mydb=# \timing                            <span style="color:#88ffaa;">-- включить замер времени выполнения запросов</span>
+Timing is on.
+
+mydb=# \?                                 <span style="color:#88ffaa;">-- справка по всем командам psql</span>
+mydb=# \q                                 <span style="color:#88ffaa;">-- выход</span></pre>
+                </div>
+                
+               
+
+                
+              
+
+                
+            </div>
+            <!-- Оригинальный блок -->
+            <div class="theory-block">
+                <strong>🤖 Что такое AI-ориентированные СУБД?</strong> Это системы, которые умеют хранить векторные эмбеддинги и выполнять поиск семантической близости (kNN). Отличие от классических SQL: вместо точного сравнения (<code>=</code>) используют операторы расстояния: косинусное, L2, скалярное произведение.
+            </div>
+             <!-- ========= НОВЫЙ РАЗДЕЛ: ПОЛНАЯ ХАРАКТЕРИСТИКА ВЕКТОРНЫХ ЭМБЕДДИНГОВ ========= -->
+            <div class="theory-block theory-deep">
+                <strong>📐 ХАРАКТЕРИСТИКА ВЕКТОРНЫХ ЭМБЕДДИНГОВ</strong>
+                
+                <p><strong>Что такое эмбеддинг (embedding)?</strong><br>
+                Эмбеддинг — это числовое представление объекта (текста, изображения, аудио, пользователя, товара) в виде вектора фиксированной размерности. Нейросеть обучается преобразовывать объекты так, чтобы семантически похожие объекты имели близкие векторы в многомерном пространстве.</p>
+
+                <p><strong>Ключевые свойства эмбеддингов:</strong></p>
+                <ul style="margin-left: 1.8rem;">
+                    <li><strong>Размерность (dimensionality)</strong> — количество чисел в векторе. Типичные значения: 128, 256, 384, 768, 1024, 1536. Чем выше размерность, тем больше информации может быть закодировано, но тем больше памяти требуется.</li>
+                    <li><strong>Нормализация</strong> — часто векторы нормализуют (длина = 1), чтобы косинусное расстояние совпадало со скалярным произведением.</li>
+                    <li><strong>Плотность</strong> — эмбеддинги плотные (почти все значения ненулевые), в отличие от разреженных one-hot векторов.</li>
+                    <li><strong>Семантическое пространство</strong> — координаты не интерпретируются напрямую, важны расстояния между векторами.</li>
+                </ul>
+
+                <p><strong>Как получают эмбеддинги? (модели и подходы)</strong></p>
+                <div class="code-block">
+# Python пример получения эмбеддинга текста через sentence-transformers
+from sentence_transformers import SentenceTransformer
+
+# Загружаем модель (размерность 384)
+model = SentenceTransformer('all-MiniLM-L6-v2')
+
+# Получаем эмбеддинг для текста
+text = "Искусственный интеллект в базах данных"
+embedding = model.encode(text)  # массив из 384 чисел
+
+print(embedding.shape)  # (384,)
+print(embedding[:5])    # [-0.123, 0.456, -0.789, 0.234, -0.567]
+                </div>
+
+                
+
+                <p><strong>Математические операции с эмбеддингами:</strong></p>
+                <div class="code-block">
+-- Косинусное расстояние: 1 - (A·B)/(|A|*|B|)
+-- Чем меньше, тем ближе по смыслу
+cosine_distance = 1 - (dot_product / (norm(a) * norm(b)))
+
+-- Евклидово (L2) расстояние: sqrt(Σ(a_i - b_i)²)
+-- Хорошо для координатных данных
+
+-- Скалярное произведение: Σ(a_i * b_i)
+-- Для нормализованных векторов совпадает с косинусом
+                </div>
+
+                
+
+                <p><strong>Примеры использования эмбеддингов в реальных задачах:</strong></p>
+                <ul style="margin-left: 1.8rem;">
+                    <li><strong>Поиск дубликатов:</strong> найти документы с эмбеддингом, близким к данному.</li>
+                    <li><strong>Кластеризация:</strong> сгруппировать похожие объекты (k-means, DBSCAN).</li>
+                    <li><strong>Рекомендательные системы:</strong> "пользователи, похожие на вас" или "товары, похожие на этот".</li>
+                    <li><strong>RAG (Retrieval-Augmented Generation):</strong> найти релевантные документы для LLM.</li>
+                    <li><strong>Поиск аномалий:</strong> объекты, чьи эмбеддинги далеки от всех остальных.</li>
+                </ul>
+
+                <p><strong>Важные практические советы:</strong></p>
+                <ul style="margin-left: 1.8rem;">
+                    <li>Всегда нормализуйте эмбеддинги, если используете косинусное расстояние.</li>
+                    <li>Размерность эмбеддинга должна быть одинаковой для всех записей в таблице.</li>
+                    <li>Для больших наборов данных (более 100 000 векторов) обязательно создавайте индексы IVFFlat или HNSW.</li>
+                    <li>Эмбеддинги можно агрегировать (усреднять) для получения вектора группы объектов.</li>
+                    <li>Перед вставкой в БД эмбеддинги можно сжать (квантование, PCA) для экономии места.</li>
+                </ul>
+            </div>
+            <!-- ТЕОРИЯ -->
+            <div class="theory-block theory-deep">
+                <strong>📌 Зачем нужны AI-ориентированные СУБД? Проблема традиционных решений</strong>
+                <p>Обычные реляционные БД (PostgreSQL, MySQL, Oracle) спроектированы для точного совпадения и сравнения по порядку. Они используют индексы B-Tree или Hash для операторов <code>=</code>, <code>&gt;</code>, <code>LIKE</code> (с ограничениями). Однако они не могут ответить на запросы типа: <em>"найди 10 товаров, похожих на этот"</em> или <em>"найди документы, семантически близкие к тексту запроса"</em>. Классический SQL не имеет встроенных средств для измерения <strong>близости в многомерном пространстве</strong>.</p>
+                
+                <p><strong>❌ Пример НЕПРАВИЛЬНОГО подхода (жесткие фильтры вместо семантики):</strong></p>
+                <div class="code-block">
+                    -- Так НЕ работает для семантического поиска:
+                    SELECT * FROM products WHERE category = 'электроника' AND price BETWEEN 500 AND 1000;
+                    -- Это жесткие фильтры, а не поиск похожих объектов!
+                    -- Такой запрос НЕ найдет "похожий" товар, если у него другая категория или цена выходит за диапазон.
+                </div>
+                
+                <p><strong>✅ Правильный подход с использованием pgvector (векторный поиск):</strong></p>
+                <div class="code-block">
+                    -- 1. Создаем таблицу с векторной колонкой (эмбеддинги товаров)
+                    CREATE EXTENSION vector;
+                    CREATE TABLE products (
+                        id SERIAL PRIMARY KEY,
+                        name TEXT,
+                        category TEXT,
+                        price NUMERIC,
+                        embedding VECTOR(384)  -- эмбеддинг, описывающий товар семантически
+                    );
+                    
+                    -- 2. Добавляем индекс для быстрого поиска по косинусному расстоянию
+                    CREATE INDEX ON products USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
+                    
+                    -- 3. Поиск 10 товаров, семантически похожих на заданный (по эмбеддингу)
+                    -- Вместо жестких условий по категории и цене — измеряем косинусную близость!
+                    SELECT name, category, price,
+                           1 - (embedding &lt;#&gt; '[0.123, -0.456, 0.789, ...]') AS similarity
+                    FROM products
+                    ORDER BY embedding &lt;#&gt; '[0.123, -0.456, 0.789, ...]'
+                    LIMIT 10;
+                    
+                    -- 4. Комбинированный поиск: фильтр + семантическая близость
+                    SELECT name, price, 1 - (embedding &lt;#&gt; target_embedding) AS similarity
+                    FROM products
+                    WHERE category = 'электроника'      -- можно добавить традиционный фильтр
+                      AND price BETWEEN 500 AND 1000
+                    ORDER BY embedding &lt;#&gt; target_embedding
+                    LIMIT 10;
+                </div>
+                
+                <p><strong>Объяснение примера с pgvector:</strong></p>
+                <ul style="margin-left: 1.5rem;">
+                    <li>Векторная колонка <code>embedding</code> хранит числовое представление товара (нейросеть превращает название, описание, категорию в вектор).</li>
+                    <li>Индекс <code>ivfflat</code> ускоряет поиск ближайших соседей (ANN) в сотни раз.</li>
+                    <li>Оператор <code>&lt;#&gt;</code> вычисляет косинусное расстояние — чем оно меньше, тем семантически ближе товары.</li>
+                    <li>В отличие от жестких фильтров, векторный поиск найдет товары, которые <strong>похожи по смыслу</strong>, даже если у них разные категории или цены.</li>
+                    <li>Можно комбинировать традиционные фильтры (<code>WHERE category = ...</code>) с векторным поиском для гибридных запросов.</li>
+                </ul>
+                
+                <p>Таким образом, pgvector превращает PostgreSQL в полноценную AI-ориентированную СУБД, сохраняя все преимущества реляционной модели.</p>
+            </div>
+
+            <div class="theory-block">
+                <strong>🏗️ Архитектура AI-ориентированной СУБД на примере pgvector</strong>
+                <p>pgvector — это расширение PostgreSQL, которое добавляет:</p>
+                <ul style="margin-left: 1.8rem; margin-top: 0.5rem;">
+                    <li><strong>Тип данных VECTOR(n)</strong> — хранит массив чисел с плавающей точкой фиксированной размерности.</li>
+                    <li><strong>Операторы векторного поиска</strong> — <code>&lt;-&gt;</code> (L2), <code>&lt;#&gt;</code> (косинус), <code>&lt;#&gt;</code> (скалярное произведение).</li>
+                    <li><strong>Индексы ANN</strong> — IVFFlat и HNSW, ускоряющие поиск в сотни раз.</li>
+                    <li><strong>Полную интеграцию с SQL</strong> — все стандартные конструкции (<code>WHERE</code>, <code>JOIN</code>, <code>ORDER BY</code>) работают с векторами.</li>
+                </ul>
+                <p>Благодаря тому, что pgvector является расширением, а не отдельной БД, вы получаете ACID-транзакции, репликацию, резервное копирование и все богатство экосистемы PostgreSQL.</p>
+            </div>
+
+            <div class="theory-block theory-deep">
+                <strong>💡 Реальные примеры использования AI-ориентированных СУБД</strong>
+                <div class="example-grid">
+                    <div class="example-card"><strong>🔍 Семантический поиск</strong><br>Поиск документов по смыслу, а не по ключевым словам. Чат-боты с RAG (Retrieval-Augmented Generation).</div>
+                    <div class="example-card"><strong>🎬 Рекомендательные системы</strong><br>"Похожие фильмы", "товары, которые могут вам понравиться", "музыка по вкусу".</div>
+                    <div class="example-card"><strong>🖼️ Поиск изображений</strong><br>Поиск картинок по картинке (reverse image search) через эмбеддинги CLIP.</div>
+                    <div class="example-card"><strong>🏥 Медицина</strong><br>Поиск похожих медицинских случаев, анализ симптомов, подбор лечения.</div>
+                    <div class="example-card"><strong>🔐 Безопасность</strong><br>Обнаружение аномалий, поиск похожих вторжений, кластеризация логов.</div>
+                    <div class="example-card"><strong>📚 Образование</strong><br>Подбор похожих курсов, материалов, автоматическая проверка рефератов на плагиат.</div>
+                </div>
+            </div>
+
+            <div class="theory-block">
+                <strong>📊 Сравнение решений: pgvector vs SQLite+vec vs FAISS (подробно)</strong>
+                <div class="comparison-table">
+                    <table>
+                        <thead><tr><th>Характеристика</th><th>pgvector</th><th>SQLite+vec</th><th>FAISS</th></tr></thead>
+                        <tbody>
+                            <tr><td>Тип</td><td>Расширение PostgreSQL</td><td>Расширение SQLite</td><td>Библиотека (C++/Python)</td></tr>
+                            <tr><td>Поддержка SQL</td><td>✅ Полная (все запросы, JOIN, подзапросы)</td><td>✅ Частичная (виртуальные таблицы)</td><td>❌ Нет</td></tr>
+                            <tr><td>Индексы ANN</td><td>IVFFlat, HNSW</td><td>IVFFlat (экспериментальный)</td><td>IVF, HNSW, PQ, LSH, много других</td></tr>
+                            <tr><td>ACID, транзакции</td><td>✅ Да (полноценные)</td><td>✅ Да</td><td>❌ Нет</td></tr>
+                            <tr><td>Масштабируемость</td><td>Миллионы векторов (сервер)</td><td>Сотни тысяч (однопользовательский)</td><td>Миллиарды векторов (в памяти)</td></tr>
+                            <tr><td>Использование в вебе</td><td>✅ Через любой бэкенд</td><td>✅ (встроенная БД, файл)</td><td>Требует обертки (REST API)</td></tr>
+                            <tr><td>Сложность внедрения</td><td>Средняя (нужна установка расширения)</td><td>Низкая (одна библиотека)</td><td>Высокая (интеграция с приложением)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Рекомендации по выбору:</strong></p>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>pgvector</strong> — лучший выбор для production веб-приложений, если уже используется PostgreSQL. Дает баланс между функциональностью, производительностью и удобством.</li>
+                    <li><strong>SQLite + векторы</strong> — для прототипов, мобильных приложений, десктопных программ, когда не нужен сервер и нагрузка невелика.</li>
+                    <li><strong>FAISS</strong> — для исследовательских проектов и high-load систем, где критична скорость поиска по миллиардам векторов, а SQL и ACID не требуются.</li>
+                </ul>
+            </div>
+
+            <div class="theory-block theory-deep">
+                <strong>🧪 Как получаются векторы? Эмбеддинги от нейросетей (практический аспект)</strong>
+                <p>Сырые данные (текст, изображение, аудио) нельзя напрямую загрузить в векторную БД. Их нужно пропустить через нейросеть-энкодер. Популярные модели:</p>
+                <ul style="margin-left: 1.8rem;">
+                    <li><strong>Sentence Transformers (SBERT)</strong> — модель <code>all-MiniLM-L6-v2</code> даёт векторы размерности 384, отлично подходит для русского/английского текста.</li>
+                    <li><strong>OpenAI Ada-002</strong> — проприетарные эмбеддинги размерности 1536, высокое качество.</li>
+                    <li><strong>CLIP</strong> — объединяет текст и изображения в общем пространстве, позволяет искать картинки по тексту и наоборот.</li>
+                    <li><strong>RuBERT</strong> — русскоязычные эмбеддинги от DeepPavlov / SberDevices.</li>
+                </ul>
+                <div class="code-block">
+                    # Python пример получения эмбеддинга через sentence-transformers
+                    from sentence_transformers import SentenceTransformer
+                    model = SentenceTransformer('all-MiniLM-L6-v2')
+                    embedding = model.encode("AI системы управления базами данных")
+                    # embedding теперь вектор размерности 384, можно сохранить в pgvector
+                    print(embedding[:5])  # первые 5 чисел: [0.123, -0.456, 0.789, ...]
+                </div>
+                <p>На практических занятиях мы используем <strong>ручное кодирование</strong> (цвета, жанры), чтобы понять принцип, а затем можно перейти к реальным эмбеддингам через Python/JavaScript.</p>
+            </div>
+
+            <div class="theory-block">
+                <strong>🚀 Производительность: почему индексы важны</strong>
+                <p>Без индекса PostgreSQL выполняет <strong>последовательное сканирование</strong> (Seq Scan) — O(N) сравнений. При 1 млн векторов поиск занимает секунды. Индексы используют алгоритмы <strong>приближенного поиска ближайших соседей (ANN)</strong>, которые жертвуют небольшой точностью ради огромного ускорения.</p>
+                <div class="screenshot-sim">
+                    -- План запроса БЕЗ индекса:
+                    Limit  (cost=0.00..1234.56 rows=10 width=100)
+                      ->  Sort  (cost=0.00..12345.67 rows=100000 width=100)
+                            Sort Key: ((vec &lt;#&gt; '[0.5,0.5,...]'))
+                            ->  Seq Scan on vectors  (cost=0.00..1234.56 rows=100000)
+                    Время выполнения: ~180 ms
+
+                    -- План запроса С индексом HNSW:
+                    Limit  (cost=0.00..12.34 rows=10 width=100)
+                      ->  Index Scan using hnsw_idx on vectors
+                            Order By: (vec &lt;#&gt; '[0.5,0.5,...]')
+                    Время выполнения: ~3 ms
+                </div>
+                <p>Ускорение в 60 раз! Поэтому для реальных приложений создание индексов — обязательный этап.</p>
+            </div>
+        </div>
+    </div>
+<div class="nonen">
+    <!-- ========= РАЗДЕЛ 2.1 УСТАНОВКА + ПРАКТИКА №1 ========= -->
+    <div class="section-card">
+        <div class="section-header"><span>2.1</span> Установка PostgreSQL и pgvector • Практика №1 (подробная теория)</div>
+        <div class="content-inner">
+            <div class="theory-block theory-deep">
+                <strong>🐘 PostgreSQL: архитектура и основные компоненты</strong>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>postmaster</strong> — главный процесс-слушатель портов (по умолчанию 5432).</li>
+                    <li><strong>Клиент psql</strong> — интерактивный терминал для выполнения SQL.</li>
+                    <li><strong>Конфигурационные файлы</strong>: <code>postgresql.conf</code> (основные настройки), <code>pg_hba.conf</code> (правила аутентификации).</li>
+                    <li><strong>Расширения (extensions)</strong> — подключаемые модули, например pgvector.</li>
+                </ul>
+            </div>
+            <div class="theory-block">
+                <strong>📥 Пошаговая установка PostgreSQL (Windows / Linux / Mac)</strong><br>
+                <strong>Windows:</strong> Скачайте инсталлятор с <a href="https://www.postgresql.org/download/windows/" target="_blank">postgresql.org</a>. Запустите, выберите компоненты (PostgreSQL Server, pgAdmin, Command Line Tools). Задайте пароль для суперпользователя <code>postgres</code>. Порт по умолчанию 5432.<br>
+                <strong>Linux (Ubuntu/Debian):</strong>
+                <div class="code-block">
+                    sudo apt update<br>
+                    sudo apt install postgresql postgresql-contrib<br>
+                    sudo systemctl start postgresql<br>
+                    sudo systemctl enable postgresql<br>
+                    sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'strongpass';"
+                </div>
+                <strong>Mac (Homebrew):</strong>
+                <div class="code-block">
+                    brew install postgresql<br>
+                    brew services start postgresql<br>
+                    createdb mydb
+                </div>
+            </div>
+            <div class="theory-block">
+                <strong>🖥️ Основы работы с psql — эмуляция скриншотов терминала</strong>
+                <div class="screenshot-sim">
+                    $ sudo -u postgres psql<br>
+                    psql (15.4)<br>
+                    Type "help" for help.<br>
+                    <br>
+                    postgres=# \l                                   <span style="color:#88ffaa;">-- список всех баз данных</span><br>
+                                                    List of databases<br>
+                       Name    |  Owner   | Encoding |   Collate   |<br>
+                    -----------+----------+----------+-------------+<br>
+                     postgres  | postgres | UTF8     | en_US.UTF-8 |<br>
+                     template0 | postgres | UTF8     | en_US.UTF-8 |<br>
+                     template1 | postgres | UTF8     | en_US.UTF-8 |<br>
+                    <br>
+                    postgres=# \c mydb                         <span style="color:#88ffaa;">-- подключиться к БД mydb</span><br>
+                    You are now connected to database "mydb".<br>
+                    mydb=# \dt                                 <span style="color:#88ffaa;">-- показать таблицы</span><br>
+                    Did not find any relations.<br>
+                    mydb=# CREATE TABLE test(id SERIAL, name TEXT);<br>
+                    CREATE TABLE<br>
+                    mydb=# \q                                   <span style="color:#88ffaa;">-- выход</span>
+                </div>
+            </div>
+            <div class="practice-card">
+                <strong>🛠️ Практическая работа №1 — Установка pgvector, создание БД и таблиц с векторными колонками</strong>
+                <div class="step-list">
+                    <strong>👉 Пошаговое задание:</strong>
+                    <ol>
+                        <li>Убедитесь, что PostgreSQL запущен.</li>
+                        <li>Установите pgvector (см. инструкцию выше).</li>
+                        <li>Подключитесь через psql и создайте базу данных <code>vector_workshop</code>.</li>
+                        <li>Активируйте расширение vector в этой БД.</li>
+                        <li>Создайте таблицу <code>embeddings_demo</code> с колонкой вектора размерности 4.</li>
+                        <li>Вставьте минимум 3 вектора и выполните поиск по косинусному расстоянию.</li>
+                    </ol>
+                </div>
+                <div class="password-field"><input type="password" id="pass1" placeholder="пароль 123"><button onclick="toggleSolution('sol1','pass1')">🔓 Показать готовый код решения</button></div>
+                <div id="sol1" class="solution-hidden">
+                    <strong>✅ Полный готовый код (SQL скрипт):</strong><br>
+                    <code>
+                    CREATE DATABASE vector_workshop;<br>
+                    \c vector_workshop;<br>
+                    CREATE EXTENSION vector;<br>
+                    CREATE TABLE embeddings_demo (<br>
+                        id SERIAL PRIMARY KEY,<br>
+                        label TEXT,<br>
+                        embedding VECTOR(4)<br>
+                    );<br>
+                    INSERT INTO embeddings_demo (label, embedding) VALUES <br>
+                        ('Вектор A', '[1,0,0,0]'),<br>
+                        ('Вектор B', '[0,1,0,0]'),<br>
+                        ('Вектор C', '[0.8,0.2,0,0]');<br>
+                    SELECT label, embedding &lt;#&gt; '[0.9,0.1,0,0]' AS cosine_distance<br>
+                    FROM embeddings_demo ORDER BY cosine_distance LIMIT 2;
+                    </code>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========= РАЗДЕЛ 3 ВЕКТОРЫ И ЭМБЕДДИНГИ (без изменений) ========= -->
+    <div class="section-card">
+        <div class="section-header"><span>3</span> Векторы, эмбеддинги и операторы поиска</div>
+        <div class="content-inner">
+            <div class="theory-block">
+                <strong>📐 Понятие вектора и эмбеддинга:</strong> Вектор — упорядоченный список чисел. Эмбеддинг — векторное представление объекта (текста, изображения, товара), полученное нейросетью. Размерность определяет детализацию. Пример: жанр «боевик» → [0.9, 0.1, 0.2]. Близость векторов = семантическая похожесть.
+            </div>
+            <div class="practice-card">
+                <strong>🎨 Практическая работа №2 — Ручное создание простых векторов (цвета, жанры)</strong>
+                <div class="step-list"><ol><li>CREATE TABLE colors (name TEXT, rgb VECTOR(3));</li><li>INSERT INTO colors VALUES ('Красный','[1,0,0]'),('Зеленый','[0,1,0]'),('Синий','[0,0,1]'),('Желтый','[1,1,0]');</li><li>SELECT name, rgb &lt;-&gt; '[1,0.5,0]' AS dist FROM colors ORDER BY dist LIMIT 1;</li></ol></div>
+                <div class="password-field"><input type="password" id="pass2" placeholder="пароль"><button onclick="toggleSolution('sol2','pass2')">🔓 Готовый код решения</button></div>
+                <div id="sol2" class="solution-hidden"><code>CREATE TABLE colors (name TEXT, rgb VECTOR(3));<br>INSERT INTO colors VALUES ('Красный','[1,0,0]'),('Зеленый','[0,1,0]'),('Синий','[0,0,1]'),('Желтый','[1,1,0]');<br>SELECT name, rgb &lt;-&gt; '[1,0.5,0]' AS euclidean_distance FROM colors ORDER BY euclidean_distance LIMIT 1; -- Желтый</code></div>
+            </div>
+            <div class="theory-block theory-deep">
+                <strong>📏 Операторы векторного поиска:</strong><br>• <code>&lt;-&gt;</code> — Евклидово (L2)<br>• <code>&lt;#&gt;</code> — Косинусное расстояние<br>• <code>&lt;#&gt;</code> — Скалярное произведение
+            </div>
+            <div class="practice-card">
+                <strong>🧪 Практическая работа №3 — Написание запросов с разными операторами pgvector</strong>
+                <div class="step-list"><ol><li>CREATE TABLE points (label TEXT, vec VECTOR(2)); INSERT INTO points VALUES ('A','[1,1]'),('B','[2,2]'),('C','[10,0]');</li><li>Найдите ближайшую точку к (1.1,1.1) с L2 и косинусом.</li></ol></div>
+                <div class="password-field"><input type="password" id="pass3" placeholder="пароль"><button onclick="toggleSolution('sol3','pass3')">🔓 Готовый код</button></div>
+                <div id="sol3" class="solution-hidden"><code>SELECT label, vec &lt;-&gt; '[1.1,1.1]' AS l2 FROM points ORDER BY l2;<br>SELECT label, vec &lt;#&gt; '[1.1,1.1]' AS cosine FROM points ORDER BY cosine;</code></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========= РАЗДЕЛ 4 ВЕКТОРНЫЙ ПОИСК (без изменений) ========= -->
+    <div class="section-card">
+        <div class="section-header"><span>4</span> Векторный поиск: индексы, оптимизация, веб-интерфейс</div>
+        <div class="content-inner">
+            <div class="theory-block">
+                <strong>🚀 Индексы IVFFlat и HNSW:</strong><br>
+                <code>CREATE INDEX ON movies USING ivfflat (genre_vec vector_cosine_ops) WITH (lists = 100);</code><br>
+                <code>CREATE INDEX ON movies USING hnsw (genre_vec vector_cosine_ops);</code>
+            </div>
+            <div class="practice-card">
+                <strong>🎬 Практическая работа №4 — Поиск похожих фильмов по вектору жанров</strong>
+                <div class="password-field"><input type="password" id="pass4" placeholder="пароль"><button onclick="toggleSolution('sol4','pass4')">🔓 Готовый код</button></div>
+                <div id="sol4" class="solution-hidden"><code>CREATE TABLE movies (title TEXT, genre_vec VECTOR(5));<br>INSERT INTO movies VALUES ('Матрица','[0.9,0.1,0.3,0.9,0.6]'),('Титаник','[0.1,0.2,0.95,0,0.1]'),('Начало','[0.7,0.2,0.7,0.9,0.8]');<br>SELECT title, 1 - (genre_vec &lt;#&gt; (SELECT genre_vec FROM movies WHERE title='Матрица')) AS similarity FROM movies WHERE title != 'Матрица' ORDER BY similarity DESC LIMIT 2;</code></div>
+            </div>
+            <div class="practice-card">
+                <strong>⚡ Практическая работа №5 — Оптимизация запросов с индексами</strong>
+                <div class="password-field"><input type="password" id="pass5" placeholder="пароль"><button onclick="toggleSolution('sol5','pass5')">🔓 Готовый код анализа</button></div>
+                <div id="sol5" class="solution-hidden"><code>CREATE TABLE test_vecs (id SERIAL, vec VECTOR(128));<br>INSERT INTO test_vecs (vec) SELECT ARRAY(SELECT random() FROM generate_series(1,128))::vector FROM generate_series(1,10000);<br>EXPLAIN ANALYZE SELECT * FROM test_vecs ORDER BY vec &lt;#&gt; (SELECT vec FROM test_vecs LIMIT 1) LIMIT 10;<br>CREATE INDEX ON test_vecs USING ivfflat (vec vector_cosine_ops) WITH (lists = 100);<br>EXPLAIN ANALYZE SELECT * FROM test_vecs ORDER BY vec &lt;#&gt; (SELECT vec FROM test_vecs LIMIT 1) LIMIT 10;</code></div>
+            </div>
+            <div class="practice-card">
+                <strong>🌐 Практическая работа №6 — Веб-интерфейс для генерации SQL (HTML/JS + PostgreSQL)</strong>
+                <div class="password-field"><input type="password" id="pass6" placeholder="пароль"><button onclick="toggleSolution('sol6','pass6')">🔓 Готовый код (Node.js + HTML)</button></div>
+                <div id="sol6" class="solution-hidden"><code>// server.js (Express)<br>app.post('/search', async (req, res) => {<br>  const { vector } = req.body;<br>  const result = await pool.query('SELECT title FROM movies ORDER BY genre_vec &lt;#&gt; $1 LIMIT 5', [vector]);<br>  res.json(result.rows);<br>});</code></div>
+            </div>
+            <div class="theory-block"><strong>🏆 Итоговый проект:</strong> разработать веб-приложение для семантического поиска с векторной БД, индексами и презентацией.</div>
+        </div>
+    </div>
+</div>
+    <!-- Литература -->
+    <div class="section-card">
+        <div class="section-header"><span>📚</span> Литература и ресурсы</div>
+        <div class="content-inner">
+            <ul><li>pgvector GitHub: <a href="https://github.com/pgvector/pgvector" target="_blank">https://github.com/pgvector/pgvector</a></li>
+            
+        </div>
+    </div>
+    <footer>© БГУИР филиал «Минский радиотехнический колледж» </footer>
+</div>
+
+<script>
+    function toggleSolution(solutionId, passwordFieldId) {
+        const sol = document.getElementById(solutionId);
+        const pass = document.getElementById(passwordFieldId);
+        if (pass.value === "123") {
+            sol.style.display = sol.style.display === "none" || sol.style.display === "" ? "block" : "none";
+        } else {
+            alert("Неверный пароль! Доступ к решению только по паролю: 123");
+            pass.style.border = "1px solid #d9534f";
+            setTimeout(() => pass.style.border = "", 1000);
+        }
+    }
+    document.querySelectorAll('.solution-hidden').forEach(el => el.style.display = "none");
+</script>
+</body>
+</html>
