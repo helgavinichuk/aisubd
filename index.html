@@ -621,6 +621,13 @@ cosine_distance = 1 - (dot_product / (norm(a) * norm(b)))
                 <strong>Windows:</strong> Скачайте инсталлятор с <a href="https://www.postgresql.org/download/windows/" target="_blank">postgresql.org</a>. Запустите, выберите компоненты (PostgreSQL Server, pgAdmin, Command Line Tools). Задайте пароль для суперпользователя <code>postgres</code>. Порт по умолчанию 5432.<br>
                 <strong>Linux (Ubuntu/Debian):</strong>
                 <div class="code-block">
+                    cd /tmp<br>
+                    git clone --branch v0.8.2 https://github.com/pgvector/pgvector.git<br>
+                    cd pgvector<br>
+                    make<br>
+                    sudo make install<br>
+
+                    __________
                     sudo apt update<br>
                     sudo apt install postgresql postgresql-contrib<br>
                     sudo systemctl start postgresql<br>
