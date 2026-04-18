@@ -618,16 +618,17 @@ cosine_distance = 1 - (dot_product / (norm(a) * norm(b)))
             </div>
             <div class="theory-block">
                 <strong>📥 Пошаговая установка PostgreSQL (Windows / Linux / Mac)</strong><br>
-                <strong>Windows:</strong> Скачайте инсталлятор с <a href="https://www.postgresql.org/download/windows/" target="_blank">postgresql.org</a>. Запустите, выберите компоненты (PostgreSQL Server, pgAdmin, Command Line Tools). Задайте пароль для суперпользователя <code>postgres</code>. Порт по умолчанию 5432.<br>
-                <strong>Linux (Ubuntu/Debian):</strong>
+                <strong>Windows:</strong> Скачайте инсталлятор с <a href="https://www.postgresql.org/download/windows/" target="_blank">postgresql.org</a>. ССылка на скачивание exe <a href="https://sbp.enterprisedb.com/getfile.jsp?fileid=1260149" target="_blank">Версия 17.9</a>Запустите, выберите компоненты (PostgreSQL Server, pgAdmin, Command Line Tools). Задайте пароль для суперпользователя <code>postgres</code>. Порт по умолчанию 5432.<br>
+                <strong>Windows:</strong>
                 <div class="code-block">
                     cd /tmp<br>
                     git clone --branch v0.8.2 https://github.com/pgvector/pgvector.git<br>
                     cd pgvector<br>
                     make<br>
                     sudo make install<br>
-
-                    __________
+                </div>
+                <strong>Linux (Ubuntu/Debian):</strong>
+                <div class="code-block">
                     sudo apt update<br>
                     sudo apt install postgresql postgresql-contrib<br>
                     sudo systemctl start postgresql<br>
