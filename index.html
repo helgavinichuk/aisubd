@@ -630,6 +630,51 @@ cosine_distance = 1 - (dot_product / (norm(a) * norm(b)))
                     cd pgvector<br>
                     make<br>
                     sudo make install<br>
+                    <hr>
+                    <hr>
+                    :: Создаем временную папку
+mkdir C:\temp\pgvector 2>nul<br>
+cd /d C:\temp\pgvector<br>
+<br>
+:: Скачиваем pgvector (через curl, встроен в Windows 10/11)<br>
+curl -L -o pgvector.zip https://github.com/pgvector/pgvector/releases/download/v0.7.0/vector-windows-x64.zip<br>
+<br>
+:: Если curl не работает, используйте PowerShell:<br>
+powershell -command "Invoke-WebRequest -Uri https://github.com/pgvector/pgvector/releases/download/v0.7.0/vector-windows-x64.zip -OutFile pgvector.zip"<br>
+<br>
+:: Распаковываем архив<br>
+tar -xf pgvector.zip<br>
+
+:: Смотрим структуру распакованных файлов<br>
+dir /s<br>
+                    <br>
+:: Обычные пути установки PostgreSQL 17<br>
+set PG_PATH=C:\Program Files\PostgreSQL\17<br>
+<br>
+:: Проверяем, существует ли папка<br>
+if exist "%PG_PATH%" (<br>
+    echo PostgreSQL найден по пути: %PG_PATH%<br>
+) else (<br>
+    echo PostgreSQL НЕ найден! Проверьте путь установки<br>
+    echo Возможные пути:<br>
+    echo C:\Program Files\PostgreSQL\17<br>
+    echo C:\Program Files (x86)\PostgreSQL\17<br>
+    pause<br>
+    exit /b 1<br>
+)<br><br>
+:: Копирование DLL файла в папку lib<br>
+echo Копирование vector.dll...<br>
+copy /Y "C:\temp\pgvector\vector-windows-x64\bin\vector.dll" "%PG_PATH%\lib\"<br>
+<br>
+:: Копирование LIB файла (для разработки)<br>
+echo Копирование vector.lib...<br>
+copy /Y "C:\temp\pgvector\vector-windows-x64\lib\vector.lib" "%PG_PATH%\lib\"<br>
+<br>
+:: Копирование файлов расширения (.control и .sql)<br>
+echo Копирование файлов расширения...<br>
+copy /Y "C:\temp\pgvector\vector-windows-x64\share\extension\*.*" "%PG_PATH%\share\extension\"<br>
+<br>
+echo Все файлы скопированы!<br>
                 </div>
                 <strong>Linux (Ubuntu/Debian):</strong>
                 <div class="code-block">
