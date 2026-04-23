@@ -637,13 +637,13 @@ cosine_distance = 1 - (dot_product / (norm(a) * norm(b)))
                     cd /d C:\temp\pgvector<br>
                     <br>
                     :: Скачиваем pgvector (через curl, встроен в Windows 10/11)<br>
-                    curl -L -o pgvector.zip https://github.com/pgvector/pgvector/releases/download/v0.7.0/vector-windows-x64.zip<br>
+                    curl -L -o pgvector.zip https://github.com/pgvector/pgvector/archive/refs/heads/master.zip<br>
                     <br>
                     :: Если curl не работает, используйте PowerShell:<br>
-                    powershell -command "Invoke-WebRequest -Uri https://github.com/pgvector/pgvector/releases/download/v0.7.0/vector-windows-x64.zip -OutFile pgvector.zip"<br>
+                    powershell -command "Invoke-WebRequest -Uri https://github.com/pgvector/pgvector/archive/refs/heads/master.zip"<br>
                     <br>
                     :: Распаковываем архив<br>
-                    tar -xf pgvector.zip<br>
+                    tar -xf master.zip<br>
                     
                     :: Смотрим структуру распакованных файлов<br>
                     dir /s<br>
