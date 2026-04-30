@@ -785,7 +785,7 @@ cosine_distance = 1 - (dot_product / (norm(a) * norm(b)))
                 <div id="sol2" class="solution-hidden"><code>CREATE TABLE colors (name TEXT, rgb VECTOR(3));<br>INSERT INTO colors VALUES ('Красный','[1,0,0]'),('Зеленый','[0,1,0]'),('Синий','[0,0,1]'),('Желтый','[1,1,0]');<br>SELECT name, rgb &lt;-&gt; '[1,0.5,0]' AS euclidean_distance FROM colors ORDER BY euclidean_distance LIMIT 1; -- Желтый</code></div>
             </div>
             <div class="theory-block theory-deep">
-                <strong>📏 Операторы векторного поиска:</strong><br>• <code>&lt;-&gt;</code> — Евклидово (L2)<br>• <code>&lt;#&gt;</code> — Косинусное расстояние<br>• <code>&lt;#&gt;</code> — Скалярное произведение
+                <strong>📏 Операторы векторного поиска:</strong><br>• <code>&lt;-&gt;</code> — Евклидово (L2)<br>• <code>&lt;#&gt;</code> — Косинусное расстояние<br>• <code>&lt;=&gt;</code> — Скалярное произведение
             </div>
             <div class="practice-card">
                 <strong>🧪 Практическая работа №3 — Написание запросов с разными операторами pgvector</strong>
