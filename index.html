@@ -782,7 +782,7 @@ cosine_distance = 1 - (dot_product / (norm(a) * norm(b)))
                 <strong>🎨 Практическая работа №2 — Ручное создание простых векторов (цвета, жанры)</strong>
                 <div class="step-list"><ol><li>CREATE TABLE colors (name TEXT, rgb VECTOR(3));</li><li>INSERT INTO colors VALUES ('Красный','[1,0,0]'),('Зеленый','[0,1,0]'),('Синий','[0,0,1]'),('Желтый','[1,1,0]');</li><li>SELECT name, rgb &lt;-&gt; '[1,0.5,0]' AS dist FROM colors ORDER BY dist LIMIT 1;</li></ol></div>
                 <div class="password-field"><input type="password" id="pass2" placeholder="пароль"><button onclick="toggleSolution('sol2','pass2')">🔓 Готовый код решения</button></div>
-                <div id="sol2" class="solution-hidden"><code>CREATE TABLE colors (name TEXT, rgb VECTOR(3));<br>INSERT INTO colors VALUES ('Красный','[1,0,0]'),('Зеленый','[0,1,0]'),('Синий','[0,0,1]'),('Желтый','[1,1,0]');<br>SELECT name, rgb &lt;-&gt; '[1,0.5,0]' AS euclidean_distance FROM colors ORDER BY euclidean_distance LIMIT 1; -- Желтый</code></div>
+                <div id="sol2" class="solution-hidden"><code>CREATE TABLE colors (name TEXT, rgb VECTOR(3));<br>INSERT INTO colors VALUES ('Красный','[1,0,0]'),('Зеленый','[0,1,0]'),('Синий','[0,0,1]'),('Желтый','[1,1,0]');<br>SELECT name, rgb &lt;-&gt; '[1,0.5,0]' AS euclidean_distance FROM colors ORDER BY euclidean_distance LIMIT 1; </code></div>
             </div>
             <div class="theory-block theory-deep">
                 <strong>📏 Операторы векторного поиска:</strong><br>• <code>&lt;-&gt;</code> — Евклидово (L2)<br>• <code>&lt;#&gt;</code> — Косинусное расстояние<br>• <code>&lt;=&gt;</code> — Скалярное произведение
